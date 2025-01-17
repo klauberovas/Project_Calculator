@@ -8,26 +8,24 @@ namespace Project_Calculator
 {
     internal class Calculator
     {
-        private double ActualResult = 0;
-        //--------------------------------------
-        private static readonly string[] ValidOperators = { "+", "-", "*", "/", "^" };
-
-        public bool isValidOperator(string mathOperator)
+        private double _actualResult;
+        
+        public Calculator(double initialResult)
         {
-            return ValidOperators.Contains(mathOperator);
+            _actualResult = initialResult;
         }
 
         public double SumUp(double value)
         {
-            return ActualResult += value;
+            return _actualResult += value;
         }
         public double Subtract(double value)
         {
-            return ActualResult -= value;
+            return _actualResult -= value;
         }
         public double Multiply(double value)
         {
-            return ActualResult *= value;
+            return _actualResult *= value;
         }
         public double Divide(double divisor)
         {
@@ -35,7 +33,7 @@ namespace Project_Calculator
             {
                 throw new DivideByZeroException("Nemůžeš dělit 0.");
             }
-            return ActualResult /= divisor;
+            return _actualResult /= divisor;
         }
         public double Power(int exponent)
         {
@@ -45,7 +43,7 @@ namespace Project_Calculator
                 return 1;
             }
 
-            if (ActualResult == 0 && exponent < 0)
+            if (_actualResult == 0 && exponent < 0)
             {
                 throw new DivideByZeroException("Cannot raise zero to a negative exponent.");
             }
@@ -55,16 +53,21 @@ namespace Project_Calculator
 
             for (int i = 0; i < absExponent; i++)
             {
-                result *= ActualResult;
+                result *= _actualResult;
             }
 
-            ActualResult = exponent > 0 ? result : (1 / result);
-            return ActualResult;
+            _actualResult = exponent > 0 ? result : (1 / result);
+            return _actualResult;
         }
 
         public double GetCurrentResult()
         {
-            return ActualResult;
+            return _actualResult;
+        }
+
+        public void SetCurrentResult(double value)
+        {
+             _actualResult = value;
         }
     }
 }
